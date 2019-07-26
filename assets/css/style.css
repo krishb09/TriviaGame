@@ -1,0 +1,22 @@
+body{
+    background: url("../images/trivia.jpg");
+    text-align: center; 
+} 
+
+#container{
+    background: lavender; 
+    border-radius: 60px / 60px;
+    width: 400px; 
+    height: 700px; 
+    /* border: dotted; 
+    border-color: white;  */
+}
+
+.top-buffer { 
+    margin-top: 150px;
+}
+
+.relative {
+    position: relative;
+    left: 30px;
+  }
