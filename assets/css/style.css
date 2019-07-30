@@ -1,22 +1,30 @@
 body{
     background: url("../images/trivia.jpg");
     text-align: center; 
+    margin: 80px; 
 } 
 
 #container{
     background: lavender; 
     border-radius: 60px / 60px;
-    width: 400px; 
-    height: 700px; 
-    /* border: dotted; 
-    border-color: white;  */
+    width: 600px; 
+    height: 850px; 
+    margin: 0 auto; 
+    padding-top: 70px; 
+    border: dotted; 
+    border-color: palevioletred; 
+    border-width: 20px; 
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    font-size: 25px; 
 }
 
-.top-buffer { 
-    margin-top: 150px;
+.timer{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    font-size: 30px; 
+    color: teal;
 }
 
-.relative {
-    position: relative;
-    left: 30px;
-  }
+.option{
+    font-size: 15px; 
+}
+
