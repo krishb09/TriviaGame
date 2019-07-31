@@ -8,7 +8,7 @@ body{
     background: lavender; 
     border-radius: 60px / 60px;
     width: 600px; 
-    height: 850px; 
+    height: 1050px; 
     margin: 0 auto; 
     padding-top: 70px; 
     border: dotted; 
@@ -27,4 +27,8 @@ body{
 .option{
     font-size: 15px; 
 }
+
+/* .row{
+    height: 100px; 
+} */
 

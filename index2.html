@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Trivia</title>
+  <link rel="stylesheet" href="assets/css/style.css"> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id= "container">
+            <div class= "row">
+                    <div class= "col"><p class= "timer">Time Remaining: 20 seconds</p></div>
+            </div>
+
+
+        <!--Holds question-->
+        <div class = "row">
+            <div class= "col-4"></div>
+            <div class= "col-4">
+                    <div id= "question"></div>
+            </div>
+            <div class= "col-4"></div>
+        </div>
+
+        <!--Holds answers-->
+        <div class = "row">
+                <!-- <div class= "col-sm-4"> 
+                        <input type="radio" name="choice" value="0"><label id="label0"></label></input>
+                </div>
+                <div class= "col-sm-4"></div>
+           
+                            <input type="radio" name="choice" value="1"><label id="label1"></label></input>
+         
+                </div>
+                <div class= "col-sm-4">
+                        <input type="radio" name="choice" value="2"><label id="label2"></label></input>
+                </div>     -->
+
+                <form action="#">
+   
+                    <input type="radio" name="choice" value="0"><label id="label0"></label><br>
+                    <input type="radio" name="choice" value="1"><label id="label1"></label><br>
+                    <input type="radio" name="choice" value="2"><label id="label2"></label><br>
+                    <br>
+                    <button id="next"> Next Question</button> 
+                  </form>
+        </div>
+    </div>
+<script src="assets/javascript/app.js"></script>
+</body>
+</html>

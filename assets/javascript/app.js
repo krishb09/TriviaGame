@@ -1,21 +1,12 @@
-//set array with different questions
-//and the answers
-
-
-//setting questions with class tag 
-$(".timer").text("Time Remaining: "); 
-$(".q1").text("What is the sunshine state?"); 
-$(".q2").text("What is the world's longest river?"); 
-$(".q3").text("What chess piece can only move diagonally?"); 
-$(".q4").text("When did the Cold War end?"); 
-$(".q5").text("Where would you find the Sea of Tranquility?"); 
-$(".q6").text("What is the capital city of Spain?"); 
-
-
 var incorrectAns = 0; 
 var correctAns = 0; 
-var timeLeft = 60; 
+var timeLeft = 20; 
+var counter =0; //track of question
+var interval; //for time 
+var currentNumber=0; 
 
+//set array with different questions
+//and the answers
 var allQuestions = [
     {
     question: "What is the sunshine state?", 
@@ -54,52 +45,111 @@ var allQuestions = [
     }
 ]; 
 
+$(document).ready(function(){
+    
+function showQuestion(qno){
+    timerSet(); 
+        // if(counter === 6){
+        //     //gameOver() function
+
+        // }else{}>>put all this 
+        var quesDiv = $("<div>");
+        var questionStore = allQuestions[qno].question; 
+        var quesP = $("<p>").text(questionStore);
+
+       
+        quesDiv.append(quesP); 
+
+        for(var j=0; j<allQuestions[qno].answers.length; j++){
+            var option=document.getElementById("label"+j);
+            option.innerHTML=allQuestions[qno].answers[j];
+        }
+        $("#question").empty(); 
+        $("#question").append(quesDiv); 
+        interval = setInterval(timerSet, 1000); 
+}
+showQuestion(counter); 
+
+//need to be able to display next set of questions with same html
+$("#next").on("click", function(){
+    counter++; 
+    showQuestion(counter); 
+    timeLeft = 20; 
+    clearInterval(interval);
+    myFunction(); 
+}); 
 
 //set the time
-var downloadTimer = setInterval(function(){
-    $(".timer").text("Time remaining: " + timeLeft + " seconds"); 
+function timerSet() {
+    $(".timer").text("Time Remaining: " + timeLeft + " seconds"); 
     timeLeft -= 1; 
 
     if(timeLeft <= 0){
-        clearInterval(downloadTimer);
+        clearInterval(interval);
         $(".timer").text("Time over!"); 
     }
-}, 1000); 
+}
+//check if radio button is checked
+// function isChecked(){
+//         for(var i=0; i<allQuestions[i].correctAnswer; i++){
+//             var x = document.getElementById("label"+i).checked;
+//             console.log(x);  
+//             if(x === allQuestions[i].correctAnswer){
+//                 alert("matched");
+//             }else{
+//                 alert("nope"); 
+//             }
+//         }   
+// }
 
-//userAnswer matches the correct answer
-function showResults(){
-    //get the selected radio button value 
- 
-    for(var i=0; i< allQuestions[i].answers.length; i++){
-    if($(".radio").checked === true){
-        if(this.value === allQuestions[i-1].correctAnswer){
-            correctAns++; 
-            console.log("correct ans"); 
-        }else{
-            incorrectAns++; 
-            console.log("wrong!"); 
+function myFunction() {
+    var choice = document.forms[0];
+    // var txt = "";
+    var i;
+    for (i = 0; i < choice.length; i++) {
+    //   if (choice[i].checked) {
+    //     console.log(choice[i]); 
+    //   }
+    var checkedVal = choice[i].checked; 
+        for(var i=0; i<allQuestions.length; i++){
+            if(checkedVal === allQuestions[i].correctAnswer){
+                alert("yep");
+            }else{
+                alert("nope"); 
+            }
         }
     }
 }
-}
 
-//show results when submit is clicked
-$("#submit").on("click", showResults())
-    console.log("submitted");  
+//userAnswer matches the correct answer
+// function showResults(){
+//     //get the selected radio button value 
+//         $("input[type='radio']").on("click", function(){
+//             var radioVal = $("input[name='choice']:checked").val();
+//         for(var j=0; j<allQuestions.length; j++){
+//         var option=document.getElementById("label"+j);
+//         // option.innerHTML=allQuestions[qno].answers[j];
 
-
-
-// for(var i=0; i< 6; i++){
-//     var radios = $(".selector" + i); 
-//     for(var j=0; j < radios.length; j++){
-//         var radio = radios[j];
-//         if(radio.value === "correct" && radio.checked){
-//             correctAmt++; 
-//         }else {
-//             alert("wrong"); 
+//             for(var i=0; i<allQuestions.length; i++){
+//                 if(option.innerHTML === allQuestions[i].correctAnswer){
+//                     console.log(option); 
+//                     alert("yay"); 
+//                 }else{
+//                     alert("nooo"); 
+//                  }
+//             }
 //         }
-//     }
+        
 // }
+
+});
+
+
+
+
+
+
+
 
 
 
