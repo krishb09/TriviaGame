@@ -49,24 +49,29 @@ $(document).ready(function(){
     
 function showQuestion(qno){
     timerSet(); 
-        // if(counter === 6){
-        //     //gameOver() function
 
-        // }else{}>>put all this 
+        if(counter === 6){
+            gameOver(); 
+        }else{
+
         var quesDiv = $("<div>");
         var questionStore = allQuestions[qno].question; 
         var quesP = $("<p>").text(questionStore);
-
-       
         quesDiv.append(quesP); 
 
         for(var j=0; j<allQuestions[qno].answers.length; j++){
             var option=document.getElementById("label"+j);
             option.innerHTML=allQuestions[qno].answers[j];
         }
+        var newButton = $("<button>");
+        newButton.text("Next Question"); 
+        $("#next").empty();  
+        $("#next").append(newButton); 
+
         $("#question").empty(); 
         $("#question").append(quesDiv); 
         interval = setInterval(timerSet, 1000); 
+    }
 }
 showQuestion(counter); 
 
@@ -76,7 +81,7 @@ $("#next").on("click", function(){
     showQuestion(counter); 
     timeLeft = 20; 
     clearInterval(interval);
-    myFunction(); 
+
 }); 
 
 //set the time
@@ -88,6 +93,32 @@ function timerSet() {
         clearInterval(interval);
         $(".timer").text("Time over!"); 
     }
+}
+
+function gameOver(qno){
+    var endDiv = $("<div>"); 
+    var endP = $("<p>").html("<h1>GAME OVER</h1>");
+    endDiv.append(endP); 
+
+    var incDiv = $("<div>"); 
+    var incP = $("<p>").text("Incorrect Answers: " + incorrectAns);
+    incDiv.append(incP); 
+
+    var corrDiv = $("<div>"); 
+    var corrP = $("<p>").text("Correct Answers: " + correctAns);
+    corrDiv.append(corrP); 
+
+
+    $("#question").empty();
+    $("#question").append(endDiv); 
+    $("#question").append(incDiv); 
+    $("#question").append(corrDiv); 
+
+    var newButton = $("<button>");
+    newButton.text("Restart Game"); 
+    $("#next").empty();  
+    $("#next").append(newButton); 
+    
 }
 //check if radio button is checked
 // function isChecked(){
@@ -102,24 +133,24 @@ function timerSet() {
 //         }   
 // }
 
-function myFunction() {
-    var choice = document.forms[0];
-    // var txt = "";
-    var i;
-    for (i = 0; i < choice.length; i++) {
-    //   if (choice[i].checked) {
-    //     console.log(choice[i]); 
-    //   }
-    var checkedVal = choice[i].checked; 
-        for(var i=0; i<allQuestions.length; i++){
-            if(checkedVal === allQuestions[i].correctAnswer){
-                alert("yep");
-            }else{
-                alert("nope"); 
-            }
-        }
-    }
-}
+// function myFunction() {
+//     var choice = document.forms[0];
+//     // var txt = "";
+//     var i;
+//     for (i = 0; i < choice.length; i++) {
+//     //   if (choice[i].checked) {
+//     //     console.log(choice[i]); 
+//     //   }
+//     var checkedVal = choice[i].checked; 
+//         for(var i=0; i<allQuestions.length; i++){
+//             if(checkedVal === allQuestions[i].correctAnswer){
+//                 alert("yep");
+//             }else{
+//                 alert("nope"); 
+//             }
+//         }
+//     }
+// }
 
 //userAnswer matches the correct answer
 // function showResults(){
