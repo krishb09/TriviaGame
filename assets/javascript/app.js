@@ -82,6 +82,23 @@ $("#next").on("click", function(){
     timeLeft = 20; 
     clearInterval(interval);
 
+
+    for(var i=0; i< allQuestions.length; i++){
+        if($("input[name='choice']:checked").val(allQuestions[i].correctAnswer) === true){
+            alert('yup');
+                // return false;
+        } else {
+            alert('no');
+        }
+        console.log(allQuestions[i].correctAnswer); 
+   }
+        // if (!$("input[name='choice']:checked").val()) {
+        //     alert('Nothing is checked!');
+        //     return false;
+        // }
+        // else {
+        //     alert('One of the radio buttons is checked!');
+        // }
 }); 
 
 //set the time
@@ -92,7 +109,37 @@ function timerSet() {
     if(timeLeft <= 0){
         clearInterval(interval);
         $(".timer").text("Time over!"); 
+        questionOver(); 
+         
     }
+}
+
+function questionOver(){
+    var endDiv = $("<div>"); 
+    var endP = $("<p>").html("<h1>Your Answer is...</h1>");
+    endDiv.append(endP); 
+
+    //see if it's correct or incorrect
+    //display Correct! or Incorrect! 
+
+    var incDiv = $("<div>"); 
+    var incP = $("<p>").text("Incorrect Answers: " + incorrectAns);
+    incDiv.append(incP); 
+
+    var corrDiv = $("<div>"); 
+    var corrP = $("<p>").text("Correct Answers: " + correctAns);
+    corrDiv.append(corrP); 
+
+    $("#question").empty();
+    $("#question").append(endDiv); 
+    $("#question").append(incDiv); 
+    $("#question").append(corrDiv); 
+
+    var newButton = $("<button>");
+    newButton.text("Next Question"); 
+    $("#next").empty();  
+    $("#next").append(newButton); 
+
 }
 
 function gameOver(qno){
@@ -108,7 +155,6 @@ function gameOver(qno){
     var corrP = $("<p>").text("Correct Answers: " + correctAns);
     corrDiv.append(corrP); 
 
-
     $("#question").empty();
     $("#question").append(endDiv); 
     $("#question").append(incDiv); 
@@ -120,59 +166,6 @@ function gameOver(qno){
     $("#next").append(newButton); 
     
 }
-//check if radio button is checked
-// function isChecked(){
-//         for(var i=0; i<allQuestions[i].correctAnswer; i++){
-//             var x = document.getElementById("label"+i).checked;
-//             console.log(x);  
-//             if(x === allQuestions[i].correctAnswer){
-//                 alert("matched");
-//             }else{
-//                 alert("nope"); 
-//             }
-//         }   
-// }
-
-// function myFunction() {
-//     var choice = document.forms[0];
-//     // var txt = "";
-//     var i;
-//     for (i = 0; i < choice.length; i++) {
-//     //   if (choice[i].checked) {
-//     //     console.log(choice[i]); 
-//     //   }
-//     var checkedVal = choice[i].checked; 
-//         for(var i=0; i<allQuestions.length; i++){
-//             if(checkedVal === allQuestions[i].correctAnswer){
-//                 alert("yep");
-//             }else{
-//                 alert("nope"); 
-//             }
-//         }
-//     }
-// }
-
-//userAnswer matches the correct answer
-// function showResults(){
-//     //get the selected radio button value 
-//         $("input[type='radio']").on("click", function(){
-//             var radioVal = $("input[name='choice']:checked").val();
-//         for(var j=0; j<allQuestions.length; j++){
-//         var option=document.getElementById("label"+j);
-//         // option.innerHTML=allQuestions[qno].answers[j];
-
-//             for(var i=0; i<allQuestions.length; i++){
-//                 if(option.innerHTML === allQuestions[i].correctAnswer){
-//                     console.log(option); 
-//                     alert("yay"); 
-//                 }else{
-//                     alert("nooo"); 
-//                  }
-//             }
-//         }
-        
-// }
-
 });
 
 
