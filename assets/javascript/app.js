@@ -46,6 +46,15 @@ var allQuestions = [
 ]; 
 
 $(document).ready(function(){
+    // startGame(); 
+
+    // function startGame(){
+    //     var newButton = $("<button>");
+    //     newButton.text("Start"); 
+    //     $("#next").empty();  
+    //     $("#next").append(newButton); 
+    
+    // }
     
 function showQuestion(qno){
     timerSet(); 
@@ -77,28 +86,24 @@ showQuestion(counter);
 
 //need to be able to display next set of questions with same html
 $("#next").on("click", function(){
-    counter++; 
-    showQuestion(counter); 
+   
     timeLeft = 20; 
     clearInterval(interval);
 
+    console.log("counter: " +counter);
+    console.log("value: " + ($("input[name='choice']:checked").val()));
+    console.log(allQuestions[counter].correctAnswer);
+    if (
+      $(!"input[name='choice']:checked").val()) 
+      {
+      alert("nothing checked");
+      // return false;
+    } else if($("input[name='choice']:checked").val() === allQuestions[counter].correctAnswer ) {
+      alert("match");
+    }
 
-    for(var i=0; i< allQuestions.length; i++){
-        if($("input[name='choice']:checked").val(allQuestions[i].correctAnswer) === true){
-            alert('yup');
-                // return false;
-        } else {
-            alert('no');
-        }
-        console.log(allQuestions[i].correctAnswer); 
-   }
-        // if (!$("input[name='choice']:checked").val()) {
-        //     alert('Nothing is checked!');
-        //     return false;
-        // }
-        // else {
-        //     alert('One of the radio buttons is checked!');
-        // }
+    counter++; 
+    showQuestion(counter); 
 }); 
 
 //set the time
@@ -113,6 +118,8 @@ function timerSet() {
          
     }
 }
+
+
 
 function questionOver(){
     var endDiv = $("<div>"); 
