@@ -11,58 +11,53 @@ var allQuestions = [
     {
     question: "What is the sunshine state?", 
     answers: ["Florida", "Rhode Island", "Hawaii"], 
-    correctAnswer: "Florida"
+    correctAnswer: "Florida",
+    correctLabel: "0"
     }, 
 
     {
     question: "What is the world's longest river?", 
     answers: ["Ganges", "Amazon", "Nile"], 
-    correctAnswer: "Amazon"
+    correctAnswer: "Amazon",
+    correctLabel: "1"
     }, 
 
     {
     question: "What chess piece can only move diagonally?", 
     answers: ["Bishop", "Queen", "Knight" ], 
-    correctAnswer: "Bishop"
+    correctAnswer: "Bishop",
+    correctLabel: "0"
     },
 
     {
     question: "When did the Cold War end?", 
     answers: ["1991", "1980", "1985"], 
-    correctAnswer: "1991"
+    correctAnswer: "1991",
+    correctLabel: "0"
     },
 
     {
     question: "Where would you find the Sea of Tranquility?", 
     answers: ["Jupiter", "The Moon", "Russia"], 
-    correctAnswer: "The Moon"
+    correctAnswer: "The Moon",
+    correctLabel: "1"
     },
 
     {
     question: "What is the capital city of Spain?", 
     answers: ["Madrid", "Seville", "Barcelona"], 
-    correctAnswer: "Madrid"
+    correctAnswer: "Madrid",
+    correctLabel: "0"
     }
 ]; 
 
 $(document).ready(function(){
-    // startGame(); 
-
-    // function startGame(){
-    //     var newButton = $("<button>");
-    //     newButton.text("Start"); 
-    //     $("#next").empty();  
-    //     $("#next").append(newButton); 
-    
-    // }
-    
+    $(".restart").hide(); 
 function showQuestion(qno){
     timerSet(); 
-
         if(counter === 6){
             gameOver(); 
         }else{
-
         var quesDiv = $("<div>");
         var questionStore = allQuestions[qno].question; 
         var quesP = $("<p>").text(questionStore);
@@ -72,14 +67,16 @@ function showQuestion(qno){
             var option=document.getElementById("label"+j);
             option.innerHTML=allQuestions[qno].answers[j];
         }
+
         var newButton = $("<button>");
         newButton.text("Next Question"); 
         $("#next").empty();  
         $("#next").append(newButton); 
-
         $("#question").empty(); 
         $("#question").append(quesDiv); 
+
         interval = setInterval(timerSet, 1000); 
+
     }
 }
 showQuestion(counter); 
@@ -90,68 +87,87 @@ $("#next").on("click", function(){
     timeLeft = 20; 
     clearInterval(interval);
 
-    console.log("counter: " +counter);
-    console.log("value: " + ($("input[name='choice']:checked").val()));
-    console.log(allQuestions[counter].correctAnswer);
-    if (
-      $(!"input[name='choice']:checked").val()) 
-      {
-      alert("nothing checked");
-      // return false;
-    } else if($("input[name='choice']:checked").val() === allQuestions[counter].correctAnswer ) {
-      alert("match");
-    }
+    // console.log('RIGHT ANSWER ', allQuestions[counter].correctAnswer);
 
+    document.querySelector('input[name="choice"]:checked').checked = false; 
     counter++; 
     showQuestion(counter); 
+
 }); 
 
+$(".restart").on("click", function(){
+
+    $("#question").hide(); 
+
+    //hide everything
+    //then run 
+    counter =0; 
+    counter++; 
+    showQuestion(counter); 
+
+
+});
+
+$(".button").on("click", function() {
+    if(counter === 6){
+        gameOver();
+    }else{
+        questionOver();
+    }
+}); 
+
+$()
 //set the time
 function timerSet() {
     $(".timer").text("Time Remaining: " + timeLeft + " seconds"); 
     timeLeft -= 1; 
-
     if(timeLeft <= 0){
         clearInterval(interval);
         $(".timer").text("Time over!"); 
-        questionOver(); 
-         
+
     }
 }
-
-
-
 function questionOver(){
-    var endDiv = $("<div>"); 
-    var endP = $("<p>").html("<h1>Your Answer is...</h1>");
-    endDiv.append(endP); 
-
-    //see if it's correct or incorrect
-    //display Correct! or Incorrect! 
-
-    var incDiv = $("<div>"); 
-    var incP = $("<p>").text("Incorrect Answers: " + incorrectAns);
-    incDiv.append(incP); 
-
-    var corrDiv = $("<div>"); 
-    var corrP = $("<p>").text("Correct Answers: " + correctAns);
-    corrDiv.append(corrP); 
-
-    $("#question").empty();
-    $("#question").append(endDiv); 
-    $("#question").append(incDiv); 
-    $("#question").append(corrDiv); 
-
     var newButton = $("<button>");
     newButton.text("Next Question"); 
     $("#next").empty();  
     $("#next").append(newButton); 
 
+    $("input[type='radio']:checked").each(function() {
+        var idVal = $(this).attr("value");
+        console.log('ID VAL', idVal)
+
+        if (idVal === allQuestions[counter].correctLabel) {
+            console.log('CORRECT!'); 
+            var endDiv = $("<div>"); 
+            var endP = $("<p>").html("<h1>Your Answer is...</h1>");
+            endDiv.append(endP); 
+            var corrDiv = $("<div>"); 
+            var corrP = $("<p>").text("Correct(:");
+            corrDiv.append(corrP);
+            $("#question").empty();
+            $("#question").append(endDiv); 
+            $("#question").append(corrDiv); 
+            correctAns++; 
+        }else{
+            console.log('WRONG');
+            var endDiv = $("<div>"); 
+            var endP = $("<p>").html("<h1>Your Answer is...</h1>");
+            endDiv.append(endP); 
+            var incDiv = $("<div>"); 
+            var incP = $("<p>").text("Incorrect ):");
+            incDiv.append(incP); 
+            $("#question").empty();
+            $("#question").append(endDiv); 
+            $("#question").append(incDiv); 
+            incorrectAns++; 
+        }
+    });
 }
 
 function gameOver(qno){
     var endDiv = $("<div>"); 
-    var endP = $("<p>").html("<h1>GAME OVER</h1>");
+    var endP = $("<p>").html("<h1>GAME OVER!!</h1>");
     endDiv.append(endP); 
 
     var incDiv = $("<div>"); 
@@ -167,11 +183,10 @@ function gameOver(qno){
     $("#question").append(incDiv); 
     $("#question").append(corrDiv); 
 
-    var newButton = $("<button>");
-    newButton.text("Restart Game"); 
-    $("#next").empty();  
-    $("#next").append(newButton); 
-    
+    $(".button").empty(); 
+    $("#next").empty();
+    $(".timer").empty(); 
+    $(".restart").show(); 
 }
 });
 
