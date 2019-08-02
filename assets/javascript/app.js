@@ -54,6 +54,8 @@ var allQuestions = [
 $(document).ready(function(){
     $(".restart").hide(); 
 function showQuestion(qno){
+    $("#question").show(); 
+    $(".button").show(); 
     timerSet(); 
         if(counter === 6){
             gameOver(); 
@@ -76,38 +78,32 @@ function showQuestion(qno){
         $("#question").append(quesDiv); 
 
         interval = setInterval(timerSet, 1000); 
-
     }
 }
 showQuestion(counter); 
 
 //need to be able to display next set of questions with same html
 $("#next").on("click", function(){
-   
+    
     timeLeft = 20; 
     clearInterval(interval);
-
-    // console.log('RIGHT ANSWER ', allQuestions[counter].correctAnswer);
-
     document.querySelector('input[name="choice"]:checked').checked = false; 
     counter++; 
     showQuestion(counter); 
-
 }); 
-
 $(".restart").on("click", function(){
 
     $("#question").hide(); 
-
+    $(".restart").hide(); 
+    incorrectAns =0; 
+    correctAns =0; 
     //hide everything
     //then run 
     counter =0; 
-    counter++; 
     showQuestion(counter); 
-
+    $("#endGame").empty(); 
 
 });
-
 $(".button").on("click", function() {
     if(counter === 6){
         gameOver();
@@ -115,8 +111,6 @@ $(".button").on("click", function() {
         questionOver();
     }
 }); 
-
-$()
 //set the time
 function timerSet() {
     $(".timer").text("Time Remaining: " + timeLeft + " seconds"); 
@@ -178,12 +172,19 @@ function gameOver(qno){
     var corrP = $("<p>").text("Correct Answers: " + correctAns);
     corrDiv.append(corrP); 
 
-    $("#question").empty();
-    $("#question").append(endDiv); 
-    $("#question").append(incDiv); 
-    $("#question").append(corrDiv); 
+    // $("#question").empty();
+    $("#question").hide()
 
-    $(".button").empty(); 
+
+    // $("#question").append(endDiv); 
+    // $("#question").append(incDiv); 
+    // $("#question").append(corrDiv); 
+
+    $("#endGame").append(endDiv); 
+    $("#endGame").append(incDiv); 
+    $("#endGame").append(corrDiv); 
+
+    $(".button").hide(); 
     $("#next").empty();
     $(".timer").empty(); 
     $(".restart").show(); 
